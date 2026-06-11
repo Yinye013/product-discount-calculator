@@ -1,0 +1,77 @@
+<main class="page">
+  <section class="card">
+    <header class="card__header">
+      <h1 class="card__title">Product Discount Calculator</h1>
+      <p class="card__subtitle">Enter the product details to calculate the final price.</p>
+    </header>
+
+    <form class="form" (ngSubmit)="calculate()" novalidate>
+      <div class="field">
+        <label class="field__label" for="productName">Product name</label>
+        <input
+          id="productName"
+          class="field__input"
+          type="text"
+          name="productName"
+          placeholder="e.g. Wireless Headphones"
+          [(ngModel)]="productName"
+        />
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="price">Price</label>
+        <input
+          id="price"
+          class="field__input"
+          type="number"
+          name="price"
+          min="0"
+          step="0.01"
+          placeholder="e.g. 199.99"
+          [(ngModel)]="price"
+        />
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="discount">Discount percentage</label>
+        <input
+          id="discount"
+          class="field__input"
+          type="number"
+          name="discount"
+          min="0"
+          max="100"
+          step="0.01"
+          placeholder="e.g. 15"
+          [(ngModel)]="discountPercentage"
+        />
+      </div>
+
+      <button class="button" type="submit">Calculate</button>
+    </form>
+
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <section class="result" *ngIf="result" aria-live="polite">
+      <h2 class="result__title">Result</h2>
+      <dl class="result__list">
+        <div class="result__row">
+          <dt>Product name</dt>
+          <dd>{{ result.productName }}</dd>
+        </div>
+        <div class="result__row">
+          <dt>Original price</dt>
+          <dd>{{ result.originalPrice | currency:'NGN':'₦' }}</dd>
+        </div>
+        <div class="result__row">
+          <dt>Discount ({{ result.discountPercentage }}%)</dt>
+          <dd>-{{ result.discountAmount | currency:'NGN':'₦' }}</dd>
+        </div>
+        <div class="result__row result__row--total">
+          <dt>Final price</dt>
+          <dd>{{ result.finalPrice | currency:'NGN':'₦' }}</dd>
+        </div>
+      </dl>
+    </section>
+  </section>
+</main>
